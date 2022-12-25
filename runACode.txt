@@ -1,0 +1,65 @@
+How To Send Mail From Localhost XAMPP Using PHP>>>>>>>>
+
+
+To send mail from localhost XAMPP using Gmail, configure XAMPP after installing it. Follow the below steps for the same.
+
+Steps to Send Mail From Localhost XAMPP Using Gmail:
+
+Open XAMPP Installation Directory.
+
+
+Go to C:\xampp\php and open the php.ini file.>>>>>>>>>>>>>>>>>>>>>>>
+
+Find [mail function] by pressing ctrl + f.
+Search and pass the following values:
+SMTP=smtp.gmail.com
+smtp_port=587
+sendmail_from = YourGmailId@gmail.com
+sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+extension = php_openssl.dll
+
+
+
+Now, go to C:\xampp\sendmail and open the sendmail.ini file.>>>>>>>>>>
+
+Find [sendmail] by pressing ctrl + f.
+Search and pass the following values
+smtp_server=smtp.gmail.com
+smtp_port=587 
+error_logfile=error.log
+debug_logfile=debug.log
+auth_username=YourGmailId@gmail.com
+auth_password=Your-Gmail-Password
+force_sender=YourGmailId@gmail.com(optional)
+smtp_ssl = tls (important)
+hostname = localhost
+
+
+
+
+Here is the actual code that you have to write
+Script To Send Mail:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	$to = "ashraf.uzzaman04082004@gmail.com";
+        $header = "From: $corrName";
+        $subject = "My identity";
+        $body = "";
+
+        $body .= "Form: " . $corrName  . "\r\n";
+        $body .= "Email: " . $to . "\r\n";
+        $body .= "Mobile: " . $corrNumber . "\r\n";
+        $body .= "Message: " . $corrDescription . "\r\n";
+
+        if(mail($to, $subject, $body, $header)){
+            echo "<script>alert('Successfully send your message.')</script>";
+
+            $text = $email = $number = $description = "";
+        }else{
+            echo "<script>alert('Something went wrong')</script>";
+        }
+
+
+
+**Note: If you are getting a warning message then Please configure “Less secure apps” settings as shown below. Sometimes without turning on the 'less secure apps' is the main reason the user didn't receive the mail. And remove the 2 factor varification.
+
+
